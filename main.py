@@ -1,6 +1,6 @@
 import numpy as np
-from matrix_splitting import matrix_splitting
 from jacobi import jacobi_method
+from gauss_seidel import gauss_seidel_method
 
 def set_up_variables():
     student_index = 198143
@@ -47,25 +47,42 @@ def create_matrix_and_vector(size_n, a1, a2, a3, digit_3):
 
 if __name__ == "__main__":
     size_n, a1, a2, a3 = set_up_variables()
-    matrix_A_taskA, vector_b_taskA = create_matrix_and_vector(size_n, a1, a2, a3, 8)
+    matrix_A, vector_b = create_matrix_and_vector(size_n, a1, a2, a3, 8)
 
-    matrix_A_taskB, vector_b_taskB = create_matrix_and_vector(size_n, 3, -1, -1, 8)
+    # Using the Jacobi method
+    solution_jacobi, residual_norms_jacobi, iterations_jacobi = jacobi_method(matrix_A, vector_b)
 
-    solution_taskA, residual_norms_taskA, iterations_taskA = jacobi_method(matrix_A_taskA, vector_b_taskA)
-
-    print("Solution for Task A:", solution_taskA)
-    print("Residual Norms for Task A:", residual_norms_taskA)
-    print("Iterations for Task A:", iterations_taskA)
+    print("Solution for Task A:", solution_jacobi)
+    print("Residual Norms for Task A:", residual_norms_jacobi)
+    print("Iterations for Task A:", iterations_jacobi)
 
     # Using numpy's built-in solver
-    solution_x_taskA = np.linalg.solve(matrix_A_taskA, vector_b_taskA)
+    solution_x_solver_jacobi = np.linalg.solve(matrix_A, vector_b)
 
-    print("Solution using numpy's solver for Task A:", solution_x_taskA)
+    print("Solution using numpy's solver for Task A:", solution_x_solver_jacobi)
 
     # Comparing with numpy's built-in solver
-    if np.allclose(solution_taskA, solution_x_taskA):
-        print("Jacobi method solution is close to numpy's solver solution for Task A.")
+    if np.allclose(solution_jacobi, solution_x_solver_jacobi):
+        print("Jacobi method solution is close to numpy's solver solution.")
     else:
-        print("Jacobi method solution is NOT close to numpy's solver solution for Task A.")
+        print("Jacobi method solution is NOT close to numpy's solver solution.")
+
+    # using the Gauss-Seidel method
+    solution_gauss_seidel, residual_norms_gauss_seidel, iterations_gauss_seidel = gauss_seidel_method(matrix_A, vector_b)
+
+    print("Solution for Task A using Gauss-Seidel method:", solution_gauss_seidel)
+    print("Residual Norms for Task A using Gauss-Seidel method:", residual_norms_gauss_seidel)
+    print("Iterations for Task A using Gauss-Seidel method:", iterations_gauss_seidel)
+
+    # Using numpy's built-in solver
+    solution_x_solver_gauss = np.linalg.solve(matrix_A, vector_b)
+    print("Solution using numpy's solver for Task A:", solution_x_solver_gauss)
+    # Comparing with numpy's built-in solver
+    if np.allclose(solution_gauss_seidel, solution_x_solver_gauss):
+        print("Gauss-Seidel method solution is close to numpy's solver solution.")
+    else:
+        print("Gauss-Seidel method solution is NOT close to numpy's solver solution.")
+        
+
 
 
