@@ -1,4 +1,6 @@
 import numpy as np
+from matrix_splitting import matrix_splitting
+from jacobi import jacobi_method
 
 def set_up_variables():
     student_index = 198143
@@ -43,7 +45,27 @@ def create_matrix_and_vector(size_n, a1, a2, a3, digit_3):
 
     return matrix_A, vector_b
 
-size_n, a1, a2, a3 = set_up_variables()
-matrix_A_taskA, vector_b_taskA = create_matrix_and_vector(size_n, a1, a2, a3, 8)
+if __name__ == "__main__":
+    size_n, a1, a2, a3 = set_up_variables()
+    matrix_A_taskA, vector_b_taskA = create_matrix_and_vector(size_n, a1, a2, a3, 8)
 
-matrix_A_taskB, vector_b_taskB = create_matrix_and_vector(size_n, 3, -1, -1, 8)
+    matrix_A_taskB, vector_b_taskB = create_matrix_and_vector(size_n, 3, -1, -1, 8)
+
+    solution_taskA, residual_norms_taskA, iterations_taskA = jacobi_method(matrix_A_taskA, vector_b_taskA)
+
+    print("Solution for Task A:", solution_taskA)
+    print("Residual Norms for Task A:", residual_norms_taskA)
+    print("Iterations for Task A:", iterations_taskA)
+
+    # Using numpy's built-in solver
+    solution_x_taskA = np.linalg.solve(matrix_A_taskA, vector_b_taskA)
+
+    print("Solution using numpy's solver for Task A:", solution_x_taskA)
+
+    # Comparing with numpy's built-in solver
+    if np.allclose(solution_taskA, solution_x_taskA):
+        print("Jacobi method solution is close to numpy's solver solution for Task A.")
+    else:
+        print("Jacobi method solution is NOT close to numpy's solver solution for Task A.")
+
+
