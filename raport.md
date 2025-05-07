@@ -84,7 +84,7 @@ Metoda Jacobiego jest stosunkowo prosta do zaimplementowania, ale może być wol
 W przypadku macierzy diagonalnie dominującej, metoda Jacobiego zbiega do rozwiązania układu równań liniowych.
 W przeciwnym razie może nie zbiegać lub zbiegać bardzo wolno.
 
-### 2.1.1 Metoda Jacobiego w postaci macierzowej
+### 2.1.2 Metoda Jacobiego w postaci macierzowej
 Metoda Jacobiego w postaci macierzowej polega na przekształceniu układu równań do postaci:
 $$x^{(k+1)} = D^{-1}(L + U)x^{(k)} + D^{-1}b$$
 którą można zapisać w postaci:
@@ -99,7 +99,7 @@ gdzie:
 
 Metoda Jacobiego w postaci macierzowej jest bardziej złożona do zaimplementowania, ale może być szybsza w konwergencji, szczególnie dla dużych układów równań.
 
-### 2.2. Metoda Gaussa-Seidela
+### 2.2.1 Metoda Gaussa-Seidela
 Metoda Gaussa-Seidela jest ulepszoną wersją metody Jacobiego.
 Jest to również metoda iteracyjna, która polega na przekształceniu układu równań do postaci:
 $$
@@ -115,6 +115,24 @@ Metoda Gaussa-Seidela jest szybsza od metody Jacobiego, ponieważ wykorzystuje j
 Jednak również wymaga, aby macierz systemowa była diagonalnie dominująca, aby zapewnić zbieżność metody.
 W przypadku macierzy diagonalnie dominującej, metoda Gaussa-Seidela zbiega do rozwiązania układu równań liniowych.
 W przeciwnym razie może nie zbiegać lub zbiegać bardzo wolno.
+
+### 2.2.2 Metoda Gaussa-Seidela w postaci macierzowej
+Metoda Gaussa-Seidela w postaci macierzowej polega na przekształceniu układu równań do postaci:
+$$x^{(k+1)} = -(D + L)^{-1}U x^{(k)} + (D + L)^{-1}b$$
+którą można zapisać w postaci:
+$$x^{(k+1)}=M_{GS} x^{(k)} + w_{GS}$$
+gdzie:
+- $x^{(k+1)}$ - wektor rozwiązań w k-tej iteracji,
+- $D$ - macierz diagonalna,
+- $L$ - macierz dolnotrójkątna,
+- $U$ - macierz górnotrójkątna,
+- $b$ - wektor pobudzenia,
+- $x^{(k)}$ - wektor rozwiązań w k-tej iteracji.
+
+Metoda Gaussa-Seidela w postaci macierzowej jest bardziej złożona do zaimplementowania, ale może być szybsza w konwergencji, szczególnie dla dużych układów równań.
+
+Aby zapewnić wydajność metody Gaussa-Seidela, czynnik $-(D+L)^{-1}(Ux^{(k)})$ będzie liczony w pętli jako $-T \text{ \ } (U*x)$, gdzie $T=(D+L)$.
+
 ### 2.3. Metoda faktoryzacji LU
 Metoda faktoryzacji LU jest jedną z najczęściej stosowanych metod rozwiązywania układów równań liniowych.
 Jest to metoda bezpośrednia, która polega na przekształceniu macierzy systemowej do postaci iloczynu dwóch macierzy:
