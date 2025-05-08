@@ -38,7 +38,7 @@ def gauss_seidel_method(matrix_A, vector_b, tolerance=1e-9, max_iterations=1000)
     r_norm.append(inorm)
 
     # Iterative solution using the Gauss-Seidel method
-    while inorm > 1e-12 and iteration_count < 1000:
+    while inorm > 1e-9 and iteration_count < 1000:
         x = np.linalg.solve(T, vector_b - U @ x)  # Solve T * x = b - U * x
         inorm = np.linalg.norm(matrix_A @ x - vector_b)  # Compute new residual norm
         r_norm.append(inorm)  # Append new norm to r_norm
