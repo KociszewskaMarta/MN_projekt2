@@ -1,6 +1,10 @@
 import numpy as np
+from matplotlib.pyplot import savefig
+
 from jacobi import jacobi_method
 from gauss_seidel import gauss_seidel_method
+import time
+import matplotlib.pyplot as plt
 
 def set_up_variables():
     student_index = 198143
@@ -22,6 +26,29 @@ def set_up_variables():
 
 
 def create_matrix_and_vector(size_n, a1, a2, a3, digit_3):
+    """
+    Create a tridiagonal matrix A and a vector b.
+    The matrix A is defined as:
+    A = [[a1, a2, a3, 0, ..., 0],
+         [a2, a1, a2, a3, ..., 0],
+         [a3, a2, a1, a2, ..., 0],
+         ...
+         [0, 0, ..., a3, a2, a1]]
+    Parameters
+    ----------
+    size_n
+    a1
+    a2
+    a3
+    digit_3
+
+    Returns
+    -------
+    matrix_A : np.ndarray
+        Coefficient matrix A.
+    vector_b : np.ndarray
+        Right-hand side vector b.
+    """
     # creating matrix A
 
     matrix_A = np.zeros((size_n, size_n))  # empty matrix
@@ -45,44 +72,88 @@ def create_matrix_and_vector(size_n, a1, a2, a3, digit_3):
 
     return matrix_A, vector_b
 
+def plot_residual_norms(residual_norms, method_name,iteration_count=1000):
+    """
+    Plot the residual norms on a semilogarithmic scale.
+
+    Parameters
+    ----------
+    iteration_count : int
+        Total number of iterations.
+    residual_norms : list or array
+        Residual norms for each iteration.
+    method_name : str
+        Name of the method (e.g., "Jacobi", "Gauss-Seidel").
+    """
+    plt.figure(figsize=(10, 6))
+    plt.semilogy(range(iteration_count + 1), residual_norms, linewidth=2, label=f'{method_name} Method')
+    plt.xlabel('Iteration')  # X-axis label
+    plt.ylabel('Residual Norm')  # Y-axis label
+    plt.title(f'Convergence of the {method_name} Method')  # Plot title
+    plt.grid(True, which="both", linestyle='--', linewidth=0.5)  # Enable grid
+    plt.legend()
+    plt.show()
+
+    # Save the plot as a PNG file
+    plt.savefig(f'{method_name}_residual_norms.png', dpi=300, bbox_inches='tight')
+
+
 if __name__ == "__main__":
     size_n, a1, a2, a3 = set_up_variables()
     matrix_A, vector_b = create_matrix_and_vector(size_n, a1, a2, a3, 8)
 
+    start_time_taskA_jacobi= time.time()
     # Using the Jacobi method
     solution_jacobi, residual_norms_jacobi, iterations_jacobi = jacobi_method(matrix_A, vector_b)
+    end_time_taskA_jacobi = time.time()
 
-    print("Solution for Task A:", solution_jacobi)
-    print("Residual Norms for Task A:", residual_norms_jacobi)
-    print("Iterations for Task A:", iterations_jacobi)
+    print("=================================================================================")
+    print("Task A - Jacobi method")
+    print("=================================================================================")
+    print("Solution for Task A using Jacobi method:", solution_jacobi)
+    print("Residual Norms for Task A using Jacobi method:", residual_norms_jacobi)
+    print("Iterations for Task A using Jacobi method:", iterations_jacobi)
+    print("Execution time for Task A using Jacobi method:", end_time_taskA_jacobi - start_time_taskA_jacobi," seconds")
 
-    # Using numpy's built-in solver
-    solution_x_solver_jacobi = np.linalg.solve(matrix_A, vector_b)
-
-    print("Solution using numpy's solver for Task A:", solution_x_solver_jacobi)
-
-    # Comparing with numpy's built-in solver
-    if np.allclose(solution_jacobi, solution_x_solver_jacobi):
-        print("Jacobi method solution is close to numpy's solver solution.")
-    else:
-        print("Jacobi method solution is NOT close to numpy's solver solution.")
-
+    start_time_taskA_gauss = time.time()
     # using the Gauss-Seidel method
     solution_gauss_seidel, residual_norms_gauss_seidel, iterations_gauss_seidel = gauss_seidel_method(matrix_A, vector_b)
+    end_time_taskA_gauss = time.time()
 
+    # Plotting the residual norms for Jacobi method
+    plot_residual_norms(residual_norms_jacobi, "Jacobi", iterations_jacobi)
+
+    print("=================================================================================")
+    print("Task A - Gauss-Seidel method")
+    print("=================================================================================")
     print("Solution for Task A using Gauss-Seidel method:", solution_gauss_seidel)
     print("Residual Norms for Task A using Gauss-Seidel method:", residual_norms_gauss_seidel)
     print("Iterations for Task A using Gauss-Seidel method:", iterations_gauss_seidel)
+    print("Execution time for Task A using Gauss-Seidel method:", end_time_taskA_gauss - start_time_taskA_gauss, " seconds")
 
-    # Using numpy's built-in solver
-    solution_x_solver_gauss = np.linalg.solve(matrix_A, vector_b)
-    print("Solution using numpy's solver for Task A:", solution_x_solver_gauss)
-    # Comparing with numpy's built-in solver
-    if np.allclose(solution_gauss_seidel, solution_x_solver_gauss):
-        print("Gauss-Seidel method solution is close to numpy's solver solution.")
-    else:
-        print("Gauss-Seidel method solution is NOT close to numpy's solver solution.")
+    # Plotting the residual norms for Gauss-Seidel method
+    plot_residual_norms(residual_norms_gauss_seidel, "Gauss-Seidel", iterations_gauss_seidel)
+
         
+    # matrix_A_taskC, vector_b_taskC = create_matrix_and_vector(size_n, 3, a2, a3, 8)
+    #
+    # print("=================================================================================")
+    # print("Task C - Jacobi method")
+    # print("=================================================================================")
+    # # Using the Jacobi method
+    # solution_jacobi_taskC, residual_norms_jacobi_taskC, iterations_jacobi_taskC = jacobi_method(matrix_A_taskC, vector_b_taskC)
+    # print("Solution for Task C using Jacobi method:", solution_jacobi_taskC)
+    # print("Residual Norms for Task C using Jacobi method:", residual_norms_jacobi_taskC)
+    # print("Iterations for Task C using Jacobi method:", iterations_jacobi_taskC)
+    #
+    # print("=================================================================================")
+    # print("Task C - Gauss-Seidel method")
+    # print("=================================================================================")
+    # # Using the Gauss-Seidel method
+    # solution_gauss_seidel_taskC, residual_norms_gauss_seidel_taskC, iterations_gauss_seidel_taskC = gauss_seidel_method(matrix_A_taskC, vector_b_taskC)
+    # print("Solution for Task C using Gauss-Seidel method:", solution_gauss_seidel_taskC)
+    # print("Residual Norms for Task C using Gauss-Seidel method:", residual_norms_gauss_seidel_taskC)
+    # print("Iterations for Task C using Gauss-Seidel method:", iterations_gauss_seidel_taskC)
 
 
 
