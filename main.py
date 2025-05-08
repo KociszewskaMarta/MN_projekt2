@@ -92,10 +92,11 @@ def plot_residual_norms(residual_norms, method_name,iteration_count=1000):
     plt.title(f'Convergence of the {method_name} Method')  # Plot title
     plt.grid(True, which="both", linestyle='--', linewidth=0.5)  # Enable grid
     plt.legend()
-    plt.show()
 
-    # Save the plot as a PNG file
+    # save plot
     plt.savefig(f'{method_name}_residual_norms.png', dpi=300, bbox_inches='tight')
+
+    plt.show()
 
 
 if __name__ == "__main__":
