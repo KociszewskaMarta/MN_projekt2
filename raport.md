@@ -148,4 +148,84 @@ Jednak wymaga również, aby macierz systemowa była macierzą kwadratową i nie
 W przypadku macierzy kwadratowej i nieosobliwej, metoda faktoryzacji LU zbiega do rozwiązania układu równań liniowych.
 W przeciwnym razie może nie zbiegać lub zbiegać bardzo wolno.
 
+## 3. Analiza wyników dla zadanego układu równań
+### 3.1. Metoda Jacobiego
+![Wykres norm residuum](Jacobi_residual_norms_ftaskA.png)
+Czas działania metody Jacobiego wyniósł w przyblieniu 2.8156 s, a liczba iteracji 44.
 
+Oś Y przedstawia normę residuum, a oś X liczbę iteracji. Norma residuum jest w skali logarytmicznej, co pozwala na obserwację zmian wielkości residuum w czasie.
+Norma residuum jest miarą błędu w obliczeniach i jest definiowana jako różnica między wartością rzeczywistą a wartością obliczoną. 
+W przypadku metody Jacobiego norma residuum maleje w czasie, co oznacza, że metoda zbiega do rozwiązania układu równań liniowych.
+
+Wykres wyraźnie pokazuje zbieżność metody Jacobiego. Norma residuum maleje monotonicznie wraz ze wzrostem liczby iteracji.
+Spadek jest początkowo dość stromy, a następnie staje się łagodniejszy, co jest typowe dla metod iteracyjnych.
+
+Metoda Jacobiego osiąga zadowalający poziom normy residuum po około 44 iteracjach.
+
+### 3.2. Metoda Gaussa-Seidela
+![Wykres norm residuum](Gauss-Seidel_residual_norms_ftaskA.png)
+Czas działania metody Gaussa-Seidela wyniósł w przyblieniu 3.7465 s, a liczba iteracji 25.
+
+Oś Y (norma residuum) jest w skali logarytmicznej. 
+
+Wykres również pokazuje zbieżność metody Gaussa-Seidela. Norma residuum maleje wraz z liczbą iteracji.
+Podobnie jak w metodzie Jacobiego, spadek normy residuum jest szybszy na początku, a potem zwalnia.
+
+Metoda Gaussa-Seidela osiąga zadowalający poziom normy residuum po około 25 iteracjach.
+
+### 3.3. Porównanie dwóch metod
+
+![Wykres norm residuum](Jacobi_Gauss_Seidel_residual_norms_ftaskA.png)
+
+|     Metoda      | Czas działania (s) | Liczba iteracji  |
+|:---------------:|:------------------:|:----------------:|
+|    Jacobiego    |       3.0815       |        44        |
+| Gaussa-Seidela  |       2.9794       |        25        |
+
+Wnioski:
+- Metoda Gaussa-Seidela jest szybsza od metody Jacobiego, zarówno pod względem czasu działania, jak i liczby iteracji.
+- Obie metody zbieżne do rozwiązania układu równań liniowych, ale metoda Gaussa-Seidela osiąga zadowalający poziom normy residuum szybciej niż metoda Jacobiego.
+- Obie metody są skuteczne w rozwiązywaniu układów równań liniowych, ale metoda Gaussa-Seidela jest bardziej efektywna w praktyce.
+
+## 4. Analiza wyników alternatywnego układu równań
+
+Zgodnie z wymaganiami **zadania C** skonstuwowano układ równań w postaci:
+$$
+A = \begin{bmatrix}
+3 & -1 & -1 & 0 & \cdots & 0 \\
+-1 & 3 & -1 & -1 & \cdots & 0 \\
+-1 & -1 & 3 & -1& \cdots & 0 \\
+0& -1 & -1 & 3 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 & \cdots & \cdots& 6 \\
+\end{bmatrix}
+$$
+
+Macierz `b` oraz $N$ pozostają bez zmian.
+
+### 4.1. Metoda Jacobiego
+![Wykres norm residuum](Jacobi_residual_norms_ftaskC.png)
+
+Czas działania metody Jacobiego wyniósł w przyblieniu 23.3873 s, a liczba iteracji 500 - maksymalną możliwą ilość.
+
+Mimo długiego czasu działania, norma residuum nie zbiega do zera, co oznacza, że metoda Jacobiego nie zbiega do rozwiązania układu równań liniowych.
+
+### 4.2. Metoda Gaussa-Seidela
+![Wykres norm residuum](Gauss-Seidel_residual_norms_ftaskC.png)
+Czas działania metody Gaussa-Seidela wyniósł w przyblieniu 77.5113 s, a liczba iteracji 500 - maksymalną możliwą ilość.
+
+Norma residuum nie zbiega do zera, co oznacza, że metoda Gaussa-Seidela nie zbiega do rozwiązania układu równań liniowych.
+
+### 4.3. Porównanie dwóch metod
+
+![Wykres norm residuum](Jacobi_Gauss_Seidel_residual_norms_ftaskC.png)
+
+|     Metoda      | Czas działania (s) | Liczba iteracji  |
+|:---------------:|:------------------:|:----------------:|
+|    Jacobiego    |       23.3873      |        500       |
+| Gaussa-Seidela  |       77.5113      |        500       |
+
+Wnioski:
+- Obie metody nie zbieżne do rozwiązania układu równań liniowych.
+- Obie metody wymagają maksymalnej liczby iteracji, aby zakończyć obliczenia.
+- Obie metody są nieskuteczne w rozwiązywaniu układów równań liniowych w tej postaci.
