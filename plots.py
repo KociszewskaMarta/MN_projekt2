@@ -63,3 +63,43 @@ def plot_both_methods(residual_norms1, residual_norms2, task, iteration_count1, 
     plt.savefig(f'Jacobi_Gauss_Seidel_residual_norms_f{task}.png', dpi=300, bbox_inches='tight')
 
     plt.show()
+
+def plot_execution_times(sizes, jacobi_times, gauss_times, lu_times):
+    """
+    Plots execution times for three methods with linear and logarithmic Y-axis scales.
+
+    Parameters:
+    sizes (list): List of matrix sizes (N).
+    jacobi_times (list): Execution times for the Jacobi method.
+    gauss_times (list): Execution times for the Gauss-Seidel method.
+    lu_times (list): Execution times for the LU factorization method.
+    """
+    # Linear scale plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(sizes, jacobi_times, label="Jacobi Method", marker='o')
+    plt.plot(sizes, gauss_times, label="Gauss-Seidel Method", marker='s')
+    plt.plot(sizes, lu_times, label="LU Factorization", marker='^')
+    plt.xlabel("Matrix Size (N)")
+    plt.ylabel("Execution Time (seconds)")
+    plt.title("Execution Time vs Matrix Size (Linear Scale)")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+    plt.savefig(f'execution_times_linear.png', dpi=300, bbox_inches='tight')
+
+
+    # Logarithmic scale plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(sizes, jacobi_times, label="Jacobi Method", marker='o')
+    plt.plot(sizes, gauss_times, label="Gauss-Seidel Method", marker='s')
+    plt.plot(sizes, lu_times, label="LU Factorization", marker='^')
+    plt.xlabel("Matrix Size (N)")
+    plt.ylabel("Execution Time (seconds)")
+    plt.yscale("log")
+    plt.title("Execution Time vs Matrix Size (Logarithmic Scale)")
+    plt.legend()
+    plt.grid(True, which="both", linestyle="--", linewidth=0.5)
+    plt.show()
+
+    plt.savefig(f'execution_times_log.png', dpi=300, bbox_inches='tight')
