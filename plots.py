@@ -84,10 +84,8 @@ def plot_execution_times(sizes, jacobi_times, gauss_times, lu_times):
     plt.title("Execution Time vs Matrix Size (Linear Scale)")
     plt.legend()
     plt.grid(True)
-    plt.show()
-
     plt.savefig(f'execution_times_linear.png', dpi=300, bbox_inches='tight')
-
+    plt.show()
 
     # Logarithmic scale plot
     plt.figure(figsize=(10, 6))
@@ -100,6 +98,7 @@ def plot_execution_times(sizes, jacobi_times, gauss_times, lu_times):
     plt.title("Execution Time vs Matrix Size (Logarithmic Scale)")
     plt.legend()
     plt.grid(True, which="both", linestyle="--", linewidth=0.5)
+    plt.savefig(f'execution_times_log.png', dpi=300, bbox_inches='tight')
+
     plt.show()
 
-    plt.savefig(f'execution_times_log.png', dpi=300, bbox_inches='tight')
