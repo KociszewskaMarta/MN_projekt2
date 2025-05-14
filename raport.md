@@ -8,7 +8,6 @@ oraz metody faktoryzacji LU.
 
 W ramach projektu zaimplementowane zostaną metody Jacobiego i Gaussa-Seidla, a także metoda faktoryzacji LU.
 
-
 Zgodnie z wymaganiami **zadania A** skonstuwowano układ równań w postaci:
 $$ Ax = b $$
 gdzie:
@@ -98,6 +97,7 @@ Metoda Jacobiego jest stosunkowo prosta do zaimplementowania, ale może być wol
 W przypadku macierzy diagonalnie dominującej, metoda Jacobiego zbiega do rozwiązania układu równań liniowych.
 W przeciwnym razie może nie zbiegać lub zbiegać bardzo wolno.
 
+
 ### 2.1.2 Metoda Jacobiego w postaci macierzowej
 Metoda Jacobiego w postaci macierzowej polega na przekształceniu układu równań do postaci:
 $$x^{(k+1)} = D^{-1}(L + U)x^{(k)} + D^{-1}b$$
@@ -140,6 +140,7 @@ Metoda Gaussa-Seidla jest szybsza od metody Jacobiego, ponieważ wykorzystuje ju
 Jednak również wymaga, aby macierz systemowa była diagonalnie dominująca, aby zapewnić zbieżność metody.
 W przypadku macierzy diagonalnie dominującej, metoda Gaussa-Seidla zbiega do rozwiązania układu równań liniowych.
 W przeciwnym razie może nie zbiegać lub zbiegać bardzo wolno.
+
 
 ### 2.2.2 Metoda Gaussa-Seidla w postaci macierzowej
 Metoda Gaussa-Seidla w postaci macierzowej polega na przekształceniu układu równań do postaci:
@@ -195,10 +196,12 @@ Rozwiązywanie układu równań liniowych za pomocą metody faktoryzacji LU skł
    Polega na rozwiązaniu dwóch układów równań liniowych:
 
    1. Podstawienie w przód (ang. *forword substitution*) 
-      $$ y = L ^{-1} (b)$$
+      $$ y = L ^{-1} (Pb)$$
    
    2. Podstawienie w tył (ang. *backward substitution*)
       $$ x = U^{-1}y$$
+
+\newpage
 
 ## 3. Analiza wyników dla zadanego układu równań
 
@@ -218,7 +221,7 @@ Spadek jest początkowo dość stromy, a następnie staje się łagodniejszy, co
 Metoda Jacobiego osiąga zadowalający poziom normy residuum po około 44 iteracjach.
 Wartość normy residuum po 44 iteracjach wynosi około $10^{-6}$, co oznacza, że metoda Jacobiego zbiega do rozwiązania układu równań liniowych.
 
-
+\newpage
 
 ### 3.2. Metoda Gaussa-Seidla
 
@@ -234,29 +237,29 @@ Podobnie jak w metodzie Jacobiego, spadek normy residuum jest szybszy na począt
 Metoda Gaussa-Seidla osiąga zadowalający poziom normy residuum po około 25 iteracjach.
 Wartość normy residuum po 25 iteracjach wynosi około $10^{-6}$, co oznacza, że metoda Gaussa-Seidla zbiega do rozwiązania układu równań liniowych.
 
-
+\newpage
 
 ### 3.3. Porównanie dwóch metod
 
 Porównanie dwóch metod przedstawia poniższa tabela oraz wykres.
 
-|     Metoda      | Czas działania (s) | Liczba iteracji  |
-|:---------------:|:------------------:|:----------------:|
-|    Jacobiego    |       3.0815       |        44        |
-| Gaussa-Seidla  |       2.9794       |        25        |
+|      Metoda      | Czas działania (s) | Liczba iteracji  |
+|:----------------:|:------------------:|:----------------:|
+|    Jacobiego     |       3.0815       |        44        |
+| Gaussa-Seidla    |       3.9794       |        25        |
 
 
 ![Wykres norm residuum - zadanie A, porównanie dwóch metod](images/Jacobi_Gauss_Seidel_residual_norms_ftaskA.png)
 
 Wnioski:
 
-- Metoda Gaussa-Seidla jest szybsza od metody Jacobiego, zarówno pod względem czasu działania, jak i liczby iteracji.
+- Metoda Jacobiego jest szybsza od metody Gaussa-Seidla, pod względem czasu działania, jednak wykonuje ona wiecej iteracji.
 
 - Obie metody zbieżne do rozwiązania układu równań liniowych, ale metoda Gaussa-Seidla osiąga zadowalający poziom normy residuum szybciej niż metoda Jacobiego.
 
 - Obie metody są skuteczne w rozwiązywaniu układów równań liniowych, ale metoda Gaussa-Seidla jest bardziej efektywna w praktyce.
 
-
+\newpage
 
 ## 4. Analiza wyników alternatywnego układu równań
 
@@ -274,6 +277,7 @@ $$
 
 Macierz $b$ oraz $N$ pozostają bez zmian.
 
+
 ### 4.1. Metoda Jacobiego
 
 Czas działania metody Jacobiego wyniósł w przyblieniu 23.3873 s, a liczba iteracji 500 - maksymalną możliwą ilość.
@@ -282,7 +286,7 @@ Czas działania metody Jacobiego wyniósł w przyblieniu 23.3873 s, a liczba ite
 
 Mimo długiego czasu działania, norma residuum nie zbiega do zera, co oznacza, że metoda Jacobiego nie zbiega do rozwiązania układu równań liniowych.
 
-
+\newpage
 
 ### 4.2. Metoda Gaussa-Seidla
 
@@ -298,9 +302,9 @@ Porównanie dwóch metod przedstawia poniższa tabela oraz wykres.
 
 ![Wykres norm residuum - zadanie C, prównanie dwóch metod](images/Jacobi_Gauss_Seidel_residual_norms_ftaskC.png)
 
-|     Metoda      | Czas działania (s) | Liczba iteracji  |
-|:---------------:|:------------------:|:----------------:|
-|    Jacobiego    |       23.3873      |        500       |
+|     Metoda     | Czas działania (s) | Liczba iteracji  |
+|:--------------:|:------------------:|:----------------:|
+|   Jacobiego    |       23.3873      |        500       |
 | Gaussa-Seidla  |       77.5113      |        500       |
 
 Wnioski:
@@ -313,10 +317,76 @@ Wnioski:
 
 ## 4. Metoda bezpośrednia - faktoryzacja LU
 
-Czas działania metody faktoryzacji LU wyniósł w przyblieniu 2.2226 s. 
-Norma residuum wynosiła ok. $4.698 * 10^ {-15}$, rząd wielkości $10^{-15}$.
+Czas działania metody faktoryzacji LU wyniósł w przyblieniu 0.01 s. 
+Norma residuum wynosiła ok. $1.606 * 10^ {-15}$, rząd wielkości $10^{-15}$.
 
-Metoda faktoryzacji LU radzi sobie znacznie lepiej niż metody iteracyjne.
+Metoda faktoryzacji LU radzi sobie znacznie lepiej w rozwiązywaniu tego układu równań, niż metody iteracyjne.
 Metoda ta jest też w tym przypadku znacznie szybsza od metod iteracyjnych, spowodowana jest to tym, że wymaga jedynie 
 jednego przekształcenia macierzy systemowej do postaci iloczynu dwóch macierzy, a  metody Jacobiego oraz Gaussa-
 Seidela, które nie zbiegają do rozwiązania, wykonują znacznie więcej operacji niż zazwyczaj powinny.
+
+\newpage
+
+## 5. Czas działania metod
+
+Czas działania metod przedstawiają poniższe wykresy. Na wykresach przedstawiono czasy działania metod w skali liniowej oraz logarytmicznej.
+
+
+![Wykres czasów działania metod - skala liniowa](images/execution_times_linear.png)
+
+1. Porówanie metod na skali liniowej:
+
+   - Dla mniejszych rozmiarów macierzy (do około N=1000), czasy wykonania wszystkich trzech metod są stosunkowo niewielkie i zbliżone do siebie.
+   
+   - Wraz ze wzrostem rozmiaru macierzy, różnice w czasach wykonania stają się bardziej widoczne.
+   
+   - Metoda faktoryzacji LU wydaje się mieć najmniejszy czas wykonania dla większych rozmiarów macierzy (N=3000).
+   
+   - Metoda Gaussa-Seidela ma wyraźnie najdłuższy czas wykonania dla największego badanego rozmiaru macierzy.
+   
+   - Metoda Jacobiego ma czasy wykonania pomiędzy metodą faktoryzacji LU a Gaussa-Seidela.
+
+\newpage
+
+![Wykres czasów działania metod - skala logarytmiczna](images/execution_times_log.png)
+
+2. Porównanie metod na skali logarytmicznej:
+   
+   - Skala logarytmiczna na osi czasu wykonania pozwala lepiej zobrazować względne różnice w czasach wykonania, szczególnie dla mniejszych wartości.
+   
+   - Widać, że wzrost czasu wykonania dla wszystkich metod jest nieliniowy.
+   
+   - Ponownie, dla większych rozmiarów macierzy, faktoryzacja LU wydaje się być najbardziej efektywna czasowo (najniższa krzywa).
+   
+   - Metoda Gaussa-Seidela konsekwentnie wykazuje dłuższy czas wykonania niż pozostałe dwie metody dla większych N.
+
+## 6. Podsumowanie
+
+W projekcie zaimplementowano i porównano iteracyjne metody rozwiązywania układów równań liniowych oraz metodę faktoryzacji LU.
+
+Zrealizowano zadania, które polegały na skonstruowaniu układu równań w postaci macierzy trójkątnej i wektora pobudzenia 
+oraz przeprowadzeniu analizy wyników dla różnych metod rozwiązywania układów równań liniowych.
+
+### Obserwacje:
+1. Metoda Jacobiego i Gaussa-Seidla 
+   - Obie metody są skuteczne w rozwiązywaniu układów równań liniowych dla układów o macierzy diagonalnie dominującej 
+   (tak jak w zadaniu A). Metoda Gaussa-Seidla jest szybsza od metody Jacobiego, zarówno pod względem czasu działania, jak i liczby iteracji.
+   - Obie metody nie są skuteczne w rozwiązywaniu układów równań liniowych dla układów o macierzy nie-diagonalnie dominującej (tak jak w zadaniu C). 
+   Przyczyna tego może być związana z tym, że macierz systemowa nie spełnia warunków zbieżności dla tych metod.
+2. Metoda faktoryzacji LU
+   - Metoda faktoryzacji LU jest znacznie szybsza od metod iteracyjnych i skuteczna w rozwiązywaniu układów równań liniowych o macierzy nie-diagonalnie dominującej (tak jak w zadaniu C).
+
+### Porównaie
+- Metody iteracyjne są obliczeniowo kosztowne dla dużych układów, ponieważ wymagają wielu iteracji, aby osiągnąć zbieżność. Jednak są przydatne dla macierzy rzadkich lub o określonej strukturze, gdzie metody bezpośrednie, takie jak faktoryzacja LU, mogą być mniej efektywne.
+- Faktoryzacja LU jest obliczeniowo wydajna dla macierzy gęstych i zapewnia dokładne rozwiązania w jednym kroku, ale może wymagać więcej pamięci dla dużych układów.
+
+### Wnioski
+- Skuteczność metod iteracyjnych zależy od właściwości macierzy: Metody Jacobiego i Gaussa-Seidla są efektywne w rozwiązywaniu układów równań liniowych, gdy macierz systemowa jest diagonalnie dominująca. W przeciwnym przypadku, mogą nie zbiegać do rozwiązania lub zbiegać bardzo wolno.
+
+- Metoda Gaussa-Seidla jest generalnie wydajniejsza od Jacobiego: Dla macierzy diagonalnie dominujących, metoda Gaussa-Seidla charakteryzuje się szybszym czasem działania i mniejszą liczbą iteracji w porównaniu do metody Jacobiego.
+
+- Faktoryzacja LU jest efektywna dla macierzy nie-diagonalnie dominujących: W przeciwieństwie do metod iteracyjnych, metoda faktoryzacji LU skutecznie rozwiązuje układy równań liniowych, nawet gdy macierz systemowa nie jest diagonalnie dominująca. Jest również znacznie szybsza, szczególnie dla macierzy, dla których metody iteracyjne mają problemy ze zbieżnością.
+
+- Złożoność obliczeniowa a rozmiar układu: Metody iteracyjne stają się bardziej kosztowne obliczeniowo dla dużych układów równań, ponieważ wymagają wielu iteracji. Metody bezpośrednie, takie jak faktoryzacja LU, mogą być bardziej efektywne dla macierzy gęstych, ale mogą wymagać więcej pamięci.
+
+- Wybór metody zależy od specyfiki problemu: Wybór odpowiedniej metody rozwiązywania układów równań liniowych zależy od charakterystyki macierzy systemowej (np. diagonalna dominacja, rzadkość) oraz od wymagań dotyczących wydajności i dokładności obliczeń.
